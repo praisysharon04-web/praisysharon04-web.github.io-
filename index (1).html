@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Praisy Sharon Varghese — Data Analyst &amp; AI/ML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#080b1a;
+    --bg-mid:#10152c;
+    --bg-soft:#161c38;
+    --glass-bg: rgba(255,255,255,0.045);
+    --glass-bg-strong: rgba(255,255,255,0.07);
+    --glass-border: rgba(255,255,255,0.09);
+    --amber:#f2b763;
+    --teal:#6fe3d6;
+    --text-primary:#f5f6fb;
+    --text-muted:#9aa0bd;
+    --text-faint:#6b7193;
+    --max-w: 1100px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(111,227,214,0.10), transparent 60%),
+      radial-gradient(1000px 700px at 110% 10%, rgba(242,183,99,0.10), transparent 55%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, var(--bg-deep) 100%);
+    background-attachment:fixed;
+    color:var(--text-primary);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background: rgba(242,183,99,0.3); color:#fff; }
+
+  h1,h2,h3,h4{
+    font-family:'Sora', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+
+  a{ color:inherit; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* Background canvas */
+  #network{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index:0;
+    opacity:0.55;
+    pointer-events:none;
+  }
+
+  /* Layout helpers */
+  .wrap{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  section{
+    position:relative;
+    z-index:1;
+    padding:110px 0;
+  }
+
+  .section-head{
+    margin-bottom:56px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 14px 0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .eyebrow::before{
+    content:'';
+    display:inline-block;
+    width:28px; height:1px;
+    background:var(--teal);
+    opacity:0.6;
+  }
+
+  .section-head h2{
+    font-size:clamp(1.8rem, 3.2vw, 2.6rem);
+    color:var(--text-primary);
+  }
+
+  .section-head p.lead{
+    margin-top:14px;
+    color:var(--text-muted);
+    max-width:640px;
+    font-size:1.02rem;
+  }
+
+  /* Glass panel base */
+  .glass{
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-radius:18px;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    justify-content:center;
+    padding-top:18px;
+    pointer-events:none;
+  }
+  nav{
+    pointer-events:all;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 10px;
+    background:rgba(16,21,44,0.55);
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-radius:999px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
+  }
+  nav a{
+    text-decoration:none;
+    font-size:0.85rem;
+    color:var(--text-muted);
+    padding:9px 16px;
+    border-radius:999px;
+    transition:color .25s ease, background .25s ease;
+    font-family:'Sora', sans-serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+  nav a:hover, nav a:focus-visible{
+    color:var(--text-primary);
+    background:rgba(255,255,255,0.07);
+    outline:none;
+  }
+  nav a.brand{
+    color:var(--amber);
+    font-weight:600;
+    padding-right:18px;
+    margin-right:4px;
+    border-right:1px solid var(--glass-border);
+    border-radius:0;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:120px;
+    padding-bottom:80px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.4rem);
+    line-height:1.05;
+    background:linear-gradient(135deg, #ffffff 0%, #ffffff 55%, var(--teal) 120%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero .role{
+    margin-top:20px;
+    font-size:1.15rem;
+    color:var(--text-muted);
+    font-weight:400;
+    max-width:540px;
+  }
+  .hero .role strong{
+    color:var(--text-primary);
+    font-weight:500;
+  }
+  .hero-cta{
+    margin-top:40px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:13px 26px;
+    border-radius:999px;
+    font-family:'Sora', sans-serif;
+    font-size:0.9rem;
+    font-weight:500;
+    text-decoration:none;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--amber), #e8985f);
+    color:#1a1208;
+    box-shadow:0 8px 24px rgba(242,183,99,0.18);
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(242,183,99,0.28);
+  }
+  .btn-ghost{
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    color:var(--text-primary);
+    backdrop-filter:blur(12px);
+  }
+  .btn-ghost:hover{
+    transform:translateY(-2px);
+    background:var(--glass-bg-strong);
+  }
+  .btn:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  /* Hero side card */
+  .hero-card{
+    padding:30px;
+    position:relative;
+  }
+  .hero-card .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    margin-bottom:18px;
+  }
+  .stat-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:14px 0;
+    border-bottom:1px solid var(--glass-border);
+  }
+  .stat-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .stat-row:first-of-type{ padding-top:0; }
+  .stat-row .k{ color:var(--text-muted); font-size:0.92rem; }
+  .stat-row .v{ font-family:'JetBrains Mono', monospace; color:var(--teal); font-size:0.92rem; text-align:right; }
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .about-text p{
+    color:var(--text-muted);
+    font-size:1.04rem;
+    margin:0 0 18px 0;
+  }
+  .about-text p strong{ color:var(--text-primary); font-weight:500; }
+
+  .lang-list{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:24px;
+  }
+  .pill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    padding:8px 14px;
+    border-radius:999px;
+    background:var(--glass-bg);
+    border:1px solid var(--glass-border);
+    color:var(--text-muted);
+  }
+
+  .focus-card{
+    padding:32px;
+  }
+  .focus-card h3{
+    font-size:1.2rem;
+    margin-bottom:14px;
+    color:var(--amber);
+  }
+  .focus-card ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .focus-card li{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--glass-border);
+    color:var(--text-muted);
+    font-size:0.95rem;
+  }
+  .focus-card li:last-child{ border-bottom:none; padding-bottom:0; }
+  .focus-card li:first-child{ padding-top:0; }
+  .focus-card li .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--teal);
+    margin-top:9px;
+    flex-shrink:0;
+  }
+
+  /* ===== EXPERIENCE ===== */
+  .timeline{
+    position:relative;
+    padding-left:36px;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:6px; top:8px; bottom:8px;
+    width:1px;
+    background:linear-gradient(180deg, var(--teal), transparent);
+    opacity:0.35;
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:48px;
+  }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:'';
+    position:absolute;
+    left:-36px; top:8px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--bg-deep);
+    border:2px solid var(--teal);
+  }
+  .tl-card{
+    padding:28px 30px;
+  }
+  .tl-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .tl-meta h3{
+    font-size:1.18rem;
+    color:var(--text-primary);
+  }
+  .tl-meta .when{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--amber);
+    white-space:nowrap;
+    padding-top:4px;
+  }
+  .tl-org{
+    font-size:0.92rem;
+    color:var(--text-faint);
+    margin-bottom:16px;
+  }
+  .tl-card ul{
+    margin:0; padding-left:20px;
+    color:var(--text-muted);
+    font-size:0.95rem;
+  }
+  .tl-card li{ margin-bottom:8px; }
+  .tl-card li:last-child{ margin-bottom:0; }
+  .tag-row{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-top:18px;
+  }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    padding:5px 11px;
+    border-radius:6px;
+    background:rgba(111,227,214,0.08);
+    border:1px solid rgba(111,227,214,0.18);
+    color:var(--teal);
+  }
+
+  /* ===== PROJECTS ===== */
+  .project-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:28px;
+  }
+  .project-card{
+    padding:32px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .35s ease, border-color .35s ease, background .35s ease;
+  }
+  .project-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,255,255,0.18);
+    background:var(--glass-bg-strong);
+  }
+  .project-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--text-faint);
+    margin-bottom:18px;
+    letter-spacing:0.1em;
+  }
+  .project-card h3{
+    font-size:1.32rem;
+    margin-bottom:14px;
+    line-height:1.3;
+  }
+  .project-card p{
+    color:var(--text-muted);
+    font-size:0.95rem;
+    margin:0 0 10px 0;
+  }
+  .project-card .metrics{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid var(--glass-border);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color:var(--teal);
+    letter-spacing:0.04em;
+  }
+
+  /* ===== SKILLS ===== */
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:20px;
+  }
+  .skill-card{
+    padding:24px;
+  }
+  .skill-card h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:16px;
+    font-weight:500;
+  }
+  .skill-card .pill{
+    margin:0 6px 8px 0;
+    display:inline-block;
+    color:var(--text-muted);
+  }
+
+  /* ===== EDUCATION / CERTS / LEADERSHIP ===== */
+  .two-col{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:28px;
+    align-items:start;
+  }
+  .info-card{
+    padding:28px 30px;
+  }
+  .info-card h3{
+    font-size:1.05rem;
+    color:var(--text-primary);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .info-card h3::before{
+    content:'';
+    width:8px; height:8px;
+    border-radius:2px;
+    background:var(--teal);
+    display:inline-block;
+    transform:rotate(45deg);
+  }
+  .edu-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--glass-border);
+  }
+  .edu-item:last-child{ border-bottom:none; padding-bottom:0; }
+  .edu-item:first-child{ padding-top:0; }
+  .edu-item .deg{ font-size:0.96rem; color:var(--text-primary); margin-bottom:4px; }
+  .edu-item .meta{ font-size:0.82rem; color:var(--text-faint); font-family:'JetBrains Mono', monospace; }
+
+  .list-row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:11px 0;
+    border-bottom:1px solid var(--glass-border);
+    font-size:0.9rem;
+  }
+  .list-row:last-child{ border-bottom:none; padding-bottom:0; }
+  .list-row:first-child{ padding-top:0; }
+  .list-row .what{ color:var(--text-muted); }
+  .list-row .when{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.76rem;
+    color:var(--text-faint);
+    white-space:nowrap;
+    padding-top:2px;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-panel{
+    padding:60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .contact-panel::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(600px 300px at 50% 0%, rgba(242,183,99,0.10), transparent 70%);
+    pointer-events:none;
+  }
+  .contact-panel h2{
+    font-size:clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom:16px;
+  }
+  .contact-panel p{
+    color:var(--text-muted);
+    max-width:480px;
+    margin:0 auto 36px auto;
+    font-size:1.02rem;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+
+  footer{
+    text-align:center;
+    padding:36px 0 50px;
+    color:var(--text-faint);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero{ padding-top:130px; min-height:auto; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .project-grid{ grid-template-columns: 1fr; }
+    .skills-grid{ grid-template-columns: repeat(2, 1fr); }
+    .two-col{ grid-template-columns: 1fr; }
+    nav{ flex-wrap:wrap; justify-content:center; max-width:92vw; }
+    nav a{ padding:8px 12px; font-size:0.78rem; }
+    section{ padding:70px 0; }
+  }
+
+  @media (max-width: 480px){
+    .skills-grid{ grid-template-columns: 1fr 1fr; }
+    .wrap{ padding:0 18px; }
+    .contact-panel{ padding:36px 22px; }
+    nav a.brand{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    #network{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="network"></canvas>
+
+<header>
+  <nav aria-label="Primary">
+    <a class="brand" href="#top">PSV</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow">Data Analyst · AI/ML · Aspiring Consultant</div>
+        <h1>Praisy Sharon<br>Varghese</h1>
+        <p class="role">
+          A final-year <strong>B.Tech CSE (AI &amp; ML)</strong> student with Honors in
+          Data Analytics at <strong>Christ (Deemed to be University), Bangalore</strong>.
+          I build models and dashboards that turn raw data into decisions —
+          and I'm looking for my first full-time analyst or data science role.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="glass hero-card">
+        <div class="label">Currently</div>
+        <div class="stat-row">
+          <span class="k">Status</span>
+          <span class="v">Final-year student</span>
+        </div>
+        <div class="stat-row">
+          <span class="k">Based in</span>
+          <span class="v">Bengaluru, IN</span>
+        </div>
+        <div class="stat-row">
+          <span class="k">Open to</span>
+          <span class="v">Data Analyst / DS / BA</span>
+        </div>
+        <div class="stat-row">
+          <span class="k">Internships</span>
+          <span class="v">2 completed</span>
+        </div>
+        <div class="stat-row">
+          <span class="k">Core stack</span>
+          <span class="v">Python · SQL · Power BI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>Where ML meets business decisions</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            My work sits at the intersection of <strong>machine learning and business strategy</strong>.
+            I'm drawn to problems where a model is only half the answer — the other half is
+            making the result legible to someone who has to act on it. That's shaped how I
+            approach every project: build something technically sound, then build the
+            dashboard or document that lets a non-technical stakeholder use it.
+          </p>
+          <p>
+            Recent work spans a churn-prediction decision support system, a trajectory
+            prediction pipeline for autonomous vehicles using LiDAR data, and process-mining
+            tooling built with a small team. Alongside the technical track, I've stayed
+            involved in campus leadership and I'm building toward consulting and strategy
+            roles — with an eye on an MBA or MS in Business Analytics down the line.
+          </p>
+          <div class="lang-list">
+            <span class="pill">English — Professional</span>
+            <span class="pill">Hindi — Native</span>
+            <span class="pill">Malayalam — Native</span>
+          </div>
+        </div>
+
+        <div class="glass focus-card">
+          <h3>What I'm focused on</h3>
+          <ul>
+            <li><span class="dot"></span> Translating messy datasets into clear, decision-ready insights</li>
+            <li><span class="dot"></span> Building ML models end-to-end — from preprocessing to evaluation</li>
+            <li><span class="dot"></span> Designing dashboards that make KPIs legible to stakeholders</li>
+            <li><span class="dot"></span> Bridging technical analysis with consulting-style storytelling</li>
+            <li><span class="dot"></span> Preparing for analyst interviews — SQL, statistics, case practice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Experience</p>
+        <h2>Internships &amp; work history</h2>
+        <p class="lead">Two internships spanning AI/ML development and quality assurance — across two different industries and countries.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="glass tl-card">
+            <div class="tl-meta">
+              <h3>Software Analyst Intern</h3>
+              <span class="when">Apr – May 2025</span>
+            </div>
+            <div class="tl-org">TraneTech Software Solutions · Abu Dhabi, UAE</div>
+            <ul>
+              <li>Built an AI-powered business decision support system in Python to predict customer churn using machine learning.</li>
+              <li>Ran data analysis and model evaluation, storing prediction results in SQL for downstream use.</li>
+              <li>Created an interactive Power BI dashboard to visualize KPIs and support business decision-making.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Power BI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="glass tl-card">
+            <div class="tl-meta">
+              <h3>Quality Control Analyst Intern</h3>
+              <span class="when">Apr – May 2026</span>
+            </div>
+            <div class="tl-org">iSmart Business Solutions · Kerala, India</div>
+            <ul>
+              <li>Worked across software development with Python scripting, requirement analysis, and software design documents (SDD).</li>
+              <li>Carried out manual, exploratory, functional, and scenario testing — with detailed bug tracking and defect reporting.</li>
+              <li>Validated workflow design within an Agile framework, producing thorough test documentation throughout.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Python Scripting</span>
+              <span class="tag">Agile</span>
+              <span class="tag">Manual Testing</span>
+              <span class="tag">Documentation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Projects</p>
+        <h2>Selected work</h2>
+        <p class="lead">Two projects that pair applied machine learning with a clear end purpose — one for business decisions, one for autonomous motion.</p>
+      </div>
+
+      <div class="project-grid">
+        <div class="glass project-card">
+          <div class="project-num">01 / Business Intelligence</div>
+          <h3>AI-Powered Business Decision Support System</h3>
+          <p>An end-to-end churn prediction system: a Python and machine learning pipeline that flags at-risk customers before they leave.</p>
+          <p>Model outputs and evaluation results are stored and queried via SQL, then surfaced in an interactive Power BI dashboard built to help non-technical stakeholders track KPIs and act on the predictions.</p>
+          <div class="metrics">PYTHON · MACHINE LEARNING · SQL · POWER BI</div>
+        </div>
+
+        <div class="glass project-card">
+          <div class="project-num">02 / Autonomous Systems</div>
+          <h3>Autonomous Vehicle Sensor Fusion &amp; Trajectory Prediction</h3>
+          <p>A trajectory prediction pipeline that uses LiDAR sensor data to model vehicle motion and forecast future paths in dynamic traffic environments.</p>
+          <p>Includes data preprocessing and feature engineering, with LSTM Encoder–Decoder and Transformer architectures for sequential motion prediction, evaluated using MAE, RMSE, ADE, and FDE.</p>
+          <div class="metrics">DEEP LEARNING · LSTM · TRANSFORMERS · LIDAR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Skills</p>
+        <h2>Toolkit</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="glass skill-card">
+          <h4>AI &amp; ML</h4>
+          <span class="pill">Machine Learning</span>
+          <span class="pill">Deep Learning</span>
+          <span class="pill">NLP</span>
+          <span class="pill">Artificial Intelligence</span>
+        </div>
+        <div class="glass skill-card">
+          <h4>Data &amp; Tools</h4>
+          <span class="pill">Python</span>
+          <span class="pill">SQL</span>
+          <span class="pill">Power BI</span>
+          <span class="pill">Excel</span>
+        </div>
+        <div class="glass skill-card">
+          <h4>Analysis</h4>
+          <span class="pill">Data Analytics</span>
+          <span class="pill">Business Analysis</span>
+          <span class="pill">Problem-Solving</span>
+          <span class="pill">Analytical Thinking</span>
+        </div>
+        <div class="glass skill-card">
+          <h4>Working with people</h4>
+          <span class="pill">Team Collaboration</span>
+          <span class="pill">Communication</span>
+          <span class="pill">Leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION / CERTS / LEADERSHIP -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Education &amp; Beyond</p>
+        <h2>Background, certificates &amp; involvement</h2>
+      </div>
+
+      <div class="two-col" style="margin-bottom:28px;">
+        <div class="glass info-card">
+          <h3>Education</h3>
+          <div class="edu-item">
+            <div class="deg">B.Tech CSE (AI &amp; ML) with Honors in Data Analytics</div>
+            <div class="meta">Christ (Deemed to be University), Bengaluru — Currently 4th year</div>
+          </div>
+          <div class="edu-item">
+            <div class="deg">Greenland Public School</div>
+            <div class="meta">Lucknow, Uttar Pradesh</div>
+          </div>
+          <div class="edu-item">
+            <div class="deg">Lawrence International School</div>
+            <div class="meta">Jalandhar, Punjab</div>
+          </div>
+        </div>
+
+        <div class="glass info-card">
+          <h3>Leadership &amp; Campus Involvement</h3>
+          <div class="list-row"><span class="what">Student Head, Anti-Ragging Squad</span><span class="when">Jul 2024 – 2026</span></div>
+          <div class="list-row"><span class="what">Member, Student Council</span><span class="when">Jul 2023 – 2026</span></div>
+          <div class="list-row"><span class="what">IEEE Computer Society Member</span><span class="when">Jul 2025 – 2026</span></div>
+          <div class="list-row"><span class="what">Member, Center for Social Action</span><span class="when">Aug 2023 – 2024</span></div>
+        </div>
+      </div>
+
+      <div class="glass info-card">
+        <h3>Certificates</h3>
+        <div class="list-row"><span class="what">Agile Scrum in Practice — Infosys Springboard</span><span class="when">2026</span></div>
+        <div class="list-row"><span class="what">Principles of Generative AI Certification — Infosys Springboard</span><span class="when">2026</span></div>
+        <div class="list-row"><span class="what">Introduction to OpenAI GPT Models — Infosys Springboard</span><span class="when">2026</span></div>
+        <div class="list-row"><span class="what">Prompt Engineering — Infosys Springboard</span><span class="when">2026</span></div>
+        <div class="list-row"><span class="what">Generative Models for Developers — Infosys Springboard</span><span class="when">2026</span></div>
+        <div class="list-row"><span class="what">EY Technology Risk Virtual Job Simulation — Forage</span><span class="when">2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="glass contact-panel">
+        <p class="eyebrow" style="justify-content:center;">Contact</p>
+        <h2>Let's talk data, strategy, or opportunities</h2>
+        <p>I'm actively looking for Data Analyst, Data Scientist, and Business Analyst roles. Reach out — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:praisysharon04@gmail.com">Email Me</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/praisysharonv/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/praisysharon04-web" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Praisy Sharon Varghese · Built with curiosity &amp; coffee</div>
+</footer>
+
+<script>
+  // Ambient drifting node network — evokes trajectory / sensor-fusion theme
+  (function(){
+    const canvas = document.getElementById('network');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, nodes;
+    const COLORS = ['rgba(111,227,214,', 'rgba(242,183,99,'];
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      const count = Math.max(28, Math.floor((w * h) / 55000));
+      nodes = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() * 1.6 + 0.6,
+        c: COLORS[Math.floor(Math.random() * COLORS.length)]
+      }));
+    }
+
+    function step(){
+      ctx.clearRect(0, 0, w, h);
+      for (const n of nodes){
+        n.x += n.vx;
+        n.y += n.vy;
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+      }
+      const maxDist = Math.min(160, w / 6);
+      for (let i = 0; i < nodes.length; i++){
+        for (let j = i + 1; j < nodes.length; j++){
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < maxDist){
+            const alpha = (1 - dist / maxDist) * 0.12;
+            ctx.strokeStyle = a.c + alpha + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (const n of nodes){
+        ctx.fillStyle = n.c + '0.55)';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    resize();
+    window.addEventListener('resize', resize);
+    if (!reduceMotion){
+      requestAnimationFrame(step);
+    } else {
+      step();
+    }
+  })();
+</script>
+
+</body>
+</html>
